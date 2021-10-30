@@ -6,7 +6,10 @@ import retrofit2.http.GET
 
 interface SSGApi {
 
-    @GET("http://static.ssgcdn.com/ui/app/test/homework.json")
+    @GET(HOMEWORK_URL)
     fun getSSGItemResponse(): Call<SSGItemResponse>
 
+    companion object {
+        private const val HOMEWORK_URL = "ui/app/test/homework.json"
+    }
 }

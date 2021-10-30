@@ -5,8 +5,9 @@ import com.example.toyssg.data.source.remote.SSGRemoteDataSource
 import com.example.toyssg.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SSGRepositoryImpl(private val ssgRemoteDataSource: SSGRemoteDataSource) : SSGRepository {
+class SSGRepositoryImpl @Inject constructor(private val ssgRemoteDataSource: SSGRemoteDataSource) : SSGRepository {
     override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
         withContext(Dispatchers.IO) {
             return@withContext ssgRemoteDataSource.getSSGItemResponse()

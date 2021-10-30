@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.example.toyssg.api.response.SSGData
 import com.example.toyssg.data.repo.SSGRepository
 import com.example.toyssg.util.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class HomeViewModel(private val ssgRepository: SSGRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val ssgRepository: SSGRepository) : ViewModel() {
 
 
     private val _viewStateLiveData = MutableLiveData<ViewState>()

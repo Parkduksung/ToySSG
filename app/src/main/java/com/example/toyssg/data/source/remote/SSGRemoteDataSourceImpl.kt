@@ -5,8 +5,10 @@ import com.example.toyssg.api.response.SSGItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.toyssg.util.Result
+import javax.inject.Inject
 
-class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource {
+class SSGRemoteDataSourceImpl @Inject constructor(private val ssgApi: SSGApi) :
+    SSGRemoteDataSource {
     override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
         withContext(Dispatchers.IO) {
             return@withContext try {
