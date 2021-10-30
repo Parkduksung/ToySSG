@@ -7,6 +7,8 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 import okhttp3.Request
 import okio.Timeout
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,6 +18,8 @@ import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
+import com.example.toyssg.util.Result
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -38,10 +42,30 @@ class SSGRemoteDataSourceImplTest {
     @Test
     fun checkGetSSGItemSuccessTest() {
 
+        initMockSSGApi(mockSSGItemResponse)
+
+        val successResult = com.example.toyssg.util.Result.Success(mockSSGItemResponse)
+
+        MatcherAssert.assertThat(
+            "올바른 SSGItemResponse 값이 나오므로 성공",
+            ((ssgRemoteDataSourceImpl.getSSGItemResponse() as Result.Success<SSGItemResponse>)),
+            Matchers.`is`(successResult.data)
+        )
     }
 
     @Test
     fun checkGetSSGItemFailTest() {
+
+        val failResult = Result.Error(Exception("Error GetSSGItemResponse!"))
+
+        Mockito.`when`(ssgApi.getSSGItem())
+            .then { failResult }
+
+        MatcherAssert.assertThat(
+            "Error 가 발생했으므로 실패.",
+            ((ssgRemoteDataSourceImpl.getSSGItemResponse() as Result.Error).exception.message),
+            Matchers.`is`(failResult.exception.message)
+        )
 
     }
 
