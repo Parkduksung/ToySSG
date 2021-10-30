@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -28,6 +30,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
     }
 }
 
@@ -70,5 +76,14 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+
+}
+
+// JetPack 관련
+dependencies {
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
 }
