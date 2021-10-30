@@ -8,6 +8,12 @@ import kotlinx.coroutines.withContext
 class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource {
     override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
         withContext(Dispatchers.IO) {
-            TODO("Not yet implemented")
+            return@withContext try {
+                val response =
+                    ssgApi.getSSGItem().execute().body()
+                Result.success(response!!)
+            } catch (e: Exception) {
+                Result.failure<SSGItemResponse>(Exception("Error GetSSGItemResponse!"))
+            }
         }
 }
