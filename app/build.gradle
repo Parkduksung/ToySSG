@@ -92,6 +92,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 // JetPack 관련

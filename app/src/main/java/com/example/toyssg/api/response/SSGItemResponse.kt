@@ -1,19 +1,21 @@
 package com.example.toyssg.api.response
 
+import com.google.gson.annotations.SerializedName
+
 data class SSGItemResponse(
-    val data: List<SSGData>,
-    val result: String
+    @SerializedName("data") val data: List<SSGData>,
+    @SerializedName("result") val result: String
 )
 
 
 data class SSGData(
-    val data: SSGItem,
-    val viewType: String
+    @SerializedName("data") val item: SSGItem,
+    @SerializedName("viewtype") val viewType: String
 )
 
 data class SSGItem(
-    var detail: String? = null,
-    var image: String? = null,
-    var name: String? = null,
-    var price: String? = null
+    @SerializedName("detail") var detail: String? = null,
+    @SerializedName("image") var image: String? = null,
+    @SerializedName("name") var name: String? = null,
+    @SerializedName("price") var price: String? = null
 )
