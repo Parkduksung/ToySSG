@@ -41,7 +41,7 @@ class SSGRemoteDataSourceImplTest {
     }
 
     @Test
-    fun checkGetSSGItemSuccessTest() {
+    fun checkGetSSGItemResponseSuccessTest() {
 
         initMockSSGApi(mockSSGItemResponse("200"))
 
@@ -55,7 +55,7 @@ class SSGRemoteDataSourceImplTest {
     }
 
     @Test
-    fun checkGetSSGItemFailTest() {
+    fun checkGetSSGItemResponseFailTest() {
 
         val failResult = Result.Error(Exception("Error GetSSGItemResponse!"))
 
