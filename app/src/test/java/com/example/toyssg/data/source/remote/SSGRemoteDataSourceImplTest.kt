@@ -2,6 +2,7 @@ package com.example.toyssg.data.source.remote
 
 import com.example.toyssg.api.SSGApi
 import com.example.toyssg.api.response.SSGData
+import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.api.response.SSGItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -44,9 +45,10 @@ class SSGRemoteDataSourceImplTest {
     @Test
     fun checkGetSSGItemResponseSuccessTest() = runBlocking {
 
-        initMockSSGApi(mockSSGItemResponse("200"))
+        initMockSSGApi(mockSSGItemResponse(mockResult = "200", mockData = mockSSGDataList))
 
-        val successResult = Result.Success(mockSSGItemResponse("200"))
+        val successResult =
+            Result.Success(mockSSGItemResponse(mockResult = "200", mockData = mockSSGDataList))
 
         MatcherAssert.assertThat(
             "올바른 SSGItemResponse 값이 나오므로 성공",
@@ -120,5 +122,26 @@ class SSGRemoteDataSourceImplTest {
                 data = mockData,
                 result = mockResult
             )
+
+
+        private val mockSSGDataList = listOf(
+
+            SSGData(
+                viewType = "image",
+                data = SSGItem(
+                    image = "https://images.unsplash.com/photo-1490885578174-acda8905c2c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                )
+            ),
+
+            SSGData(
+                viewType = "productItem",
+                data = SSGItem(
+                    image = "https://images.unsplash.com/photo-1484406566174-9da000fda645?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
+                    price = "10000",
+                    name = "상품01",
+                    detail = "상품01 입니다."
+                )
+            )
+        )
     }
 }

@@ -4,6 +4,7 @@ import com.example.toyssg.api.SSGApi
 import com.example.toyssg.api.response.SSGItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.example.toyssg.util.Result
 
 class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource {
     override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
@@ -11,9 +12,9 @@ class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource 
             return@withContext try {
                 val response =
                     ssgApi.getSSGItemResponse().execute().body()
-                Result.success(response!!)
+                Result.Success(response!!)
             } catch (e: Exception) {
-                Result.failure(Exception("Error GetSSGItemResponse!"))
+                Result.Error(Exception("Error GetSSGItemResponse!"))
             }
         }
 }
