@@ -20,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class SSGRemoteDataSourceImplTest : BaseTest(){
+class SSGRemoteDataSourceImplTest : BaseTest() {
 
 
     @Mock
@@ -113,7 +113,7 @@ class SSGRemoteDataSourceImplTest : BaseTest(){
             mockData: List<SSGData> = emptyList()
         ): SSGItemResponse =
             SSGItemResponse(
-                data = mockData,
+                dataList = mockData,
                 result = mockResult
             )
 
@@ -122,14 +122,14 @@ class SSGRemoteDataSourceImplTest : BaseTest(){
 
             SSGData(
                 viewType = "image",
-                data = SSGItem(
+                item = SSGItem(
                     image = "https://images.unsplash.com/photo-1490885578174-acda8905c2c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
                 )
             ),
 
             SSGData(
                 viewType = "productItem",
-                data = SSGItem(
+                item = SSGItem(
                     image = "https://images.unsplash.com/photo-1484406566174-9da000fda645?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
                     price = "10000",
                     name = "상품01",

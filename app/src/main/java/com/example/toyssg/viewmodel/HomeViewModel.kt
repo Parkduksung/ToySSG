@@ -21,7 +21,8 @@ class HomeViewModel @Inject constructor(
             when (val result = ssgRepository.getSSGItemResponse()) {
 
                 is Result.Success -> {
-                    viewStateChanged(HomeViewState.GetSSGItemList(result.data.data))
+                    val resultResponse = result.data
+                    viewStateChanged(HomeViewState.GetSSGItemList(resultResponse.dataList))
                 }
                 is Result.Error -> {
                     viewStateChanged(HomeViewState.Error(result.exception.message.toString()))

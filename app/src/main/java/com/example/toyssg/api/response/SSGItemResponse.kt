@@ -3,7 +3,7 @@ package com.example.toyssg.api.response
 import com.google.gson.annotations.SerializedName
 
 data class SSGItemResponse(
-    @SerializedName("data") val data: List<SSGData>,
+    @SerializedName("data") val dataList: List<SSGData>,
     @SerializedName("result") val result: String
 )
 
