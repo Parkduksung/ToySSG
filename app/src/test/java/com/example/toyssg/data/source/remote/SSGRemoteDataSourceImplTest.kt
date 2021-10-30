@@ -1,32 +1,26 @@
 package com.example.toyssg.data.source.remote
 
+import base.BaseTest
 import com.example.toyssg.api.SSGApi
 import com.example.toyssg.api.response.SSGData
 import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.api.response.SSGItemResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.setMain
+import com.example.toyssg.util.Result
+import kotlinx.coroutines.runBlocking
 import okhttp3.Request
 import okio.Timeout
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
-import com.example.toyssg.util.Result
-import kotlinx.coroutines.runBlocking
 
 
-@RunWith(MockitoJUnitRunner::class)
-class SSGRemoteDataSourceImplTest {
+class SSGRemoteDataSourceImplTest : BaseTest(){
 
 
     @Mock
@@ -36,8 +30,8 @@ class SSGRemoteDataSourceImplTest {
     private lateinit var ssgRemoteDataSourceImpl: SSGRemoteDataSourceImpl
 
     @Before
-    fun setup() {
-        Dispatchers.setMain(TestCoroutineDispatcher())
+    override fun setup() {
+        super.setup()
         ssgApi = Mockito.mock(SSGApi::class.java)
         ssgRemoteDataSourceImpl = SSGRemoteDataSourceImpl(ssgApi)
     }

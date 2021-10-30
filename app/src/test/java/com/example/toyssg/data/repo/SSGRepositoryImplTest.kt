@@ -1,25 +1,20 @@
 package com.example.toyssg.data.repo
 
+import base.BaseTest
 import com.example.toyssg.api.response.SSGItemResponse
 import com.example.toyssg.data.source.remote.SSGRemoteDataSource
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImpl
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest
 import com.example.toyssg.util.Result
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.setMain
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
-class SSGRepositoryImplTest {
+class SSGRepositoryImplTest : BaseTest() {
 
     @Mock
     lateinit var ssgRemoteDataSource: SSGRemoteDataSource
@@ -29,8 +24,8 @@ class SSGRepositoryImplTest {
 
 
     @Before
-    fun setup() {
-        Dispatchers.setMain(TestCoroutineDispatcher())
+    override fun setup() {
+        super.setup()
         ssgRemoteDataSource = Mockito.mock(SSGRemoteDataSourceImpl::class.java)
         ssgRepositoryImpl = SSGRepositoryImpl(ssgRemoteDataSource)
     }
