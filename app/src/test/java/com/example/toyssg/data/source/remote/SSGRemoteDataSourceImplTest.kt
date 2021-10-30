@@ -21,6 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 import com.example.toyssg.util.Result
+import kotlinx.coroutines.runBlocking
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -41,7 +42,7 @@ class SSGRemoteDataSourceImplTest {
     }
 
     @Test
-    fun checkGetSSGItemResponseSuccessTest() {
+    fun checkGetSSGItemResponseSuccessTest() = runBlocking {
 
         initMockSSGApi(mockSSGItemResponse("200"))
 
@@ -55,7 +56,7 @@ class SSGRemoteDataSourceImplTest {
     }
 
     @Test
-    fun checkGetSSGItemResponseFailTest() {
+    fun checkGetSSGItemResponseFailTest() = runBlocking {
 
         val failResult = Result.Error(Exception("Error GetSSGItemResponse!"))
 
