@@ -6,8 +6,9 @@ import com.example.toyssg.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SSGRepositoryImpl(private val ssgRemoteDataSource: SSGRemoteDataSource) {
-    suspend fun getSSGItemResponse(): Result<SSGItemResponse> = withContext(Dispatchers.IO) {
-        return@withContext ssgRemoteDataSource.getSSGItemResponse()
-    }
+class SSGRepositoryImpl(private val ssgRemoteDataSource: SSGRemoteDataSource) : SSGRepository {
+    override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
+        withContext(Dispatchers.IO) {
+            return@withContext ssgRemoteDataSource.getSSGItemResponse()
+        }
 }
