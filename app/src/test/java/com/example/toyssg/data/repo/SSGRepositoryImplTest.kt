@@ -4,21 +4,19 @@ import com.example.toyssg.api.response.SSGItemResponse
 import com.example.toyssg.data.source.remote.SSGRemoteDataSource
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImpl
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest
+import com.example.toyssg.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.Exception
-import com.example.toyssg.util.Result
 
 @RunWith(MockitoJUnitRunner::class)
 class SSGRepositoryImplTest {
@@ -49,7 +47,7 @@ class SSGRepositoryImplTest {
 
         MatcherAssert.assertThat(
             "올바른 SSGItemResponse 값이 전달받았으므로 성공",
-            ((ssgRepositoryImpl.getSSGItemResponse() as Result.Success<SSGItemResponse>).data.result,
+            ((ssgRepositoryImpl.getSSGItemResponse() as Result.Success<SSGItemResponse>).data.result),
             Matchers.`is`(successResult.data.result)
         )
 
