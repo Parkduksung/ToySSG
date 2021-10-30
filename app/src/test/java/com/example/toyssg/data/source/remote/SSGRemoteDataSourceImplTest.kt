@@ -1,6 +1,7 @@
 package com.example.toyssg.data.source.remote
 
 import com.example.toyssg.api.SSGApi
+import com.example.toyssg.api.response.SSGItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
