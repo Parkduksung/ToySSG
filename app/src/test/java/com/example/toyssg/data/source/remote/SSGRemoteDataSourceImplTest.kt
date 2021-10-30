@@ -60,7 +60,7 @@ class SSGRemoteDataSourceImplTest {
 
         val failResult = Result.Error(Exception("Error GetSSGItemResponse!"))
 
-        Mockito.`when`(ssgApi.getSSGItem())
+        Mockito.`when`(ssgApi.getSSGItemResponse())
             .then { failResult }
 
         MatcherAssert.assertThat(
@@ -73,7 +73,7 @@ class SSGRemoteDataSourceImplTest {
 
     fun initMockSSGApi(response: SSGItemResponse) {
 
-        Mockito.`when`(ssgApi.getSSGItem()).thenReturn(
+        Mockito.`when`(ssgApi.getSSGItemResponse()).thenReturn(
             object : Call<SSGItemResponse> {
                 override fun clone(): Call<SSGItemResponse> {
                     TODO("Not yet implemented")

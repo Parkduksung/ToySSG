@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface SSGApi {
 
     @GET("http://static.ssgcdn.com/ui/app/test/homework.json")
-    fun getSSGItem(): Call<SSGItemResponse>
+    fun getSSGItemResponse(): Call<SSGItemResponse>
 
 }

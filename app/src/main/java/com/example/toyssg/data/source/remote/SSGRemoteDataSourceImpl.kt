@@ -10,10 +10,10 @@ class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource 
         withContext(Dispatchers.IO) {
             return@withContext try {
                 val response =
-                    ssgApi.getSSGItem().execute().body()
+                    ssgApi.getSSGItemResponse().execute().body()
                 Result.success(response!!)
             } catch (e: Exception) {
-                Result.failure<SSGItemResponse>(Exception("Error GetSSGItemResponse!"))
+                Result.failure(Exception("Error GetSSGItemResponse!"))
             }
         }
 }
