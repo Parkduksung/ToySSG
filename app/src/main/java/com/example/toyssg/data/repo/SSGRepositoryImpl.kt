@@ -1,4 +1,6 @@
 package com.example.toyssg.data.repo
 
-class SSGRepositoryImpl {
+import com.example.toyssg.data.source.remote.SSGRemoteDataSource
+
+class SSGRepositoryImpl(private val ssgRemoteDataSource: SSGRemoteDataSource) {
 }
