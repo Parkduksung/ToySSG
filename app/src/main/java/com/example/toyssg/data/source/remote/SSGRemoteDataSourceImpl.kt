@@ -1,4 +1,6 @@
 package com.example.toyssg.data.source.remote
 
-class SSGRemoteDataSourceImpl : SSGRemoteDataSource {
+import com.example.toyssg.api.SSGApi
+
+class SSGRemoteDataSourceImpl(private val ssgApi: SSGApi) : SSGRemoteDataSource {
 }
