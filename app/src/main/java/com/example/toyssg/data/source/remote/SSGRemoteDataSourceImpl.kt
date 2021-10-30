@@ -12,8 +12,7 @@ class SSGRemoteDataSourceImpl @Inject constructor(private val ssgApi: SSGApi) :
     override suspend fun getSSGItemResponse(): Result<SSGItemResponse> =
         withContext(Dispatchers.IO) {
             return@withContext try {
-                val response =
-                    ssgApi.getSSGItemResponse().execute().body()
+                val response = ssgApi.getSSGItemResponse().execute().body()
                 Result.Success(response!!)
             } catch (e: Exception) {
                 Result.Error(Exception("Error GetSSGItemResponse!"))

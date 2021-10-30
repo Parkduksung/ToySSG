@@ -5,9 +5,9 @@ import com.example.toyssg.api.response.SSGData
 import com.example.toyssg.base.BaseViewModel
 import com.example.toyssg.base.ViewState
 import com.example.toyssg.data.repo.SSGRepository
-import com.example.toyssg.ext.ioScope
 import com.example.toyssg.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel(app) {
 
     fun getSSGItemResponse() {
-        ioScope {
+        ioScope.launch {
             when (val result = ssgRepository.getSSGItemResponse()) {
 
                 is Result.Success -> {
