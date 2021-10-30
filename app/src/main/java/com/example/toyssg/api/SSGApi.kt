@@ -1,8 +1,12 @@
 package com.example.toyssg.api
 
+import com.example.toyssg.api.response.SSGItemResponse
+import retrofit2.Call
+import retrofit2.http.GET
+
 interface SSGApi {
 
-    fun getSSGItem(): Any {
-        TODO("Not yet implemented")
-    }
+    @GET("http://static.ssgcdn.com/ui/app/test/homework.json")
+    fun getSSGItem(): Call<SSGItemResponse>
+
 }
