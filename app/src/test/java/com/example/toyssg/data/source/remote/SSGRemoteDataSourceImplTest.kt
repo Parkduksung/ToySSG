@@ -1,6 +1,7 @@
 package com.example.toyssg.data.source.remote
 
 import com.example.toyssg.api.SSGApi
+import com.example.toyssg.api.response.SSGData
 import com.example.toyssg.api.response.SSGItemResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -42,14 +43,14 @@ class SSGRemoteDataSourceImplTest {
     @Test
     fun checkGetSSGItemSuccessTest() {
 
-        initMockSSGApi(mockSSGItemResponse)
+        initMockSSGApi(mockSSGItemResponse("200"))
 
-        val successResult = com.example.toyssg.util.Result.Success(mockSSGItemResponse)
+        val successResult = Result.Success(mockSSGItemResponse("200"))
 
         MatcherAssert.assertThat(
             "올바른 SSGItemResponse 값이 나오므로 성공",
-            ((ssgRemoteDataSourceImpl.getSSGItemResponse() as Result.Success<SSGItemResponse>)),
-            Matchers.`is`(successResult.data)
+            ((ssgRemoteDataSourceImpl.getSSGItemResponse() as Result.Success<SSGItemResponse>).data.result),
+            Matchers.`is`(successResult.data.result)
         )
     }
 
@@ -106,5 +107,17 @@ class SSGRemoteDataSourceImplTest {
                 }
             }
         )
+    }
+
+    companion object {
+
+        fun mockSSGItemResponse(
+            mockResult: String,
+            mockData: List<SSGData> = emptyList()
+        ): SSGItemResponse =
+            SSGItemResponse(
+                data = mockData,
+                result = mockResult
+            )
     }
 }
