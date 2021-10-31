@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/alternative_image_until_not_bring.xml" value="0.2733333333333333" />
         <entry key="app/src/main/res/layout/home_act.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/item_image.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_ssg.xml" value="0.165" />
       </map>
     </option>
