@@ -48,7 +48,7 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<SSGItem>>() {
             return when (viewType) {
 
                 0 -> {
-                    ImageViewHolder(parent, R.layout.item_product)
+                    ImageViewHolder(parent, R.layout.item_image)
                 }
                 1 -> {
                     ProductItemViewHolder(parent, R.layout.item_product)
