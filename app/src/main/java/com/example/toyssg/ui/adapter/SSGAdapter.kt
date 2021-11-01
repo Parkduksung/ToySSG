@@ -4,30 +4,42 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.toyssg.R
 import com.example.toyssg.api.response.SSGData
-import com.example.toyssg.api.response.SSGItem
-
+import com.example.toyssg.constant.SSGDataTYpe
+import com.example.toyssg.ext.transViewTypeToInt
 import com.example.toyssg.ui.adapter.viewholder.BaseSSGViewHolder
 import com.example.toyssg.ui.adapter.viewholder.ImageViewHolder
 import com.example.toyssg.ui.adapter.viewholder.ProductItemViewHolder
 
 
-class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<SSGItem>>() {
+class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
 
     private val ssgItemList = mutableListOf<SSGData>()
+
+    private lateinit var itemClickListener: (item: Any) -> Unit
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseSSGViewHolder<SSGItem> =
-        sortViewHolder(parent, viewType)
+    ): BaseSSGViewHolder<*> =
+        sortViewHolder(parent, viewType, itemClickListener)
+
+
+    override fun getItemViewType(position: Int): Int =
+        ssgItemList[position].transViewTypeToInt()
 
 
     override fun onBindViewHolder(
-        holder: BaseSSGViewHolder<SSGItem>,
+        holder: BaseSSGViewHolder<*>,
         position: Int
     ) {
-
-        holder.bind(ssgItemList[position].item)
+        when (holder) {
+            is ImageViewHolder -> {
+                holder.bind(ssgItemList[position].item)
+            }
+            is ProductItemViewHolder -> {
+                holder.bind(ssgItemList[position].item)
+            }
+        }
     }
 
     override fun getItemCount(): Int =
@@ -39,22 +51,23 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<SSGItem>>() {
         notifyDataSetChanged()
     }
 
+    fun setOnItemClickListener(listener: (item: Any) -> Unit) {
+        itemClickListener = listener
+    }
+
     companion object {
 
         fun sortViewHolder(
             parent: ViewGroup,
-            viewType: Int
-        ): BaseSSGViewHolder<SSGItem> {
+            viewType: Int,
+            onItemClick: (item: Any) -> Unit
+        ): BaseSSGViewHolder<*> {
             return when (viewType) {
-
-                0 -> {
+                SSGDataTYpe.TYPE_IMAGE.ordinal -> {
                     ImageViewHolder(parent, R.layout.item_image)
                 }
-                1 -> {
-                    ProductItemViewHolder(parent, R.layout.item_product)
-                }
                 else -> {
-                    throw  IllegalArgumentException()
+                    ProductItemViewHolder(parent, R.layout.item_product, onItemClick)
                 }
             }
         }

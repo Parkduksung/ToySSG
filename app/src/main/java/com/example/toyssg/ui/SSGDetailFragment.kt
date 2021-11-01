@@ -53,6 +53,10 @@ class SSGDetailFragment : BaseFragment<DetailFrgBinding>(R.layout.detail_frg) {
         homeViewModel.viewStateLiveData.observe(requireActivity()) { viewState ->
             (viewState as? HomeViewModel.HomeViewState)?.let { onChangedViewState(viewState) }
         }
+
+        arguments?.getParcelable<SSGItem>(KEY_ITEM)?.let {
+            homeViewModel.addCurrentSSGItem(it)
+        }
     }
 
     private fun onChangedViewState(viewState: HomeViewModel.HomeViewState) {

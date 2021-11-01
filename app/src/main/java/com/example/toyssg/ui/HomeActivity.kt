@@ -50,7 +50,6 @@ class HomeActivity : BaseActivity<HomeActBinding>(R.layout.home_act) {
                         R.id.container_route,
                         SSGCurrentFragment()
                     ).commit()
-
             }
 
             is HomeViewModel.HomeViewState.ShowProgress -> {
@@ -62,6 +61,10 @@ class HomeActivity : BaseActivity<HomeActBinding>(R.layout.home_act) {
 
             is HomeViewModel.HomeViewState.HideProgress -> {
                 binding.progressbar.isVisible = false
+            }
+
+            is HomeViewModel.HomeViewState.Error -> {
+                Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

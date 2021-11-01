@@ -34,6 +34,45 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun addCurrentSSGItem(item: SSGItem) {
+        ioScope.launch {
+            if (ssgRepository.registerSSGEntity(item.toSSGEntity())) {
+                viewStateChanged(HomeViewState.AddCurrentItem)
+            } else {
+                viewStateChanged(HomeViewState.Error("등록 x"))
+            }
+        }
+    }
+
+    fun deleteCurrentSSGItem(item: SSGItem) {
+        ioScope.launch {
+            if (ssgRepository.deleteSSGEntity(item.toSSGEntity())) {
+                viewStateChanged(HomeViewState.DeleteCurrentItem(item))
+            } else {
+                viewStateChanged(HomeViewState.Error("삭제 x"))
+            }
+        }
+    }
+
+    fun getCurrentItemList() {
+        ioScope.launch {
+            when (val result = ssgRepository.getAllSSGEntity()) {
+                is Result.Success -> {
+                    if (result.data.isNotEmpty()) {
+                        val toSSGItemList = result.data.map { it.toSSGItem() }
+                        viewStateChanged(HomeViewState.GetCurrentItemList(toSSGItemList))
+                    } else {
+                        viewStateChanged(HomeViewState.EmptyCurrentItem)
+                    }
+                }
+
+                is Result.Error -> {
+                    viewStateChanged(HomeViewState.Error("결과 x"))
+                }
+            }
+        }
+    }
+
 
     fun routeContent() {
         viewStateChanged(HomeViewState.RouteContent)
@@ -60,10 +99,14 @@ class HomeViewModel @Inject constructor(
         data class GetSSGItemList(val list: List<SSGData>) : HomeViewState()
         data class Error(val message: String) : HomeViewState()
         data class RouteDetail(val item: SSGItem) : HomeViewState()
+        data class GetCurrentItemList(val list: List<SSGItem>) : HomeViewState()
         object RouteContent : HomeViewState()
         object RouteCurrent : HomeViewState()
         object ShowProgress : HomeViewState()
         object HideProgress : HomeViewState()
+        object AddCurrentItem : HomeViewState()
+        data class DeleteCurrentItem(val item: SSGItem) : HomeViewState()
+        object EmptyCurrentItem : HomeViewState()
     }
 
 }

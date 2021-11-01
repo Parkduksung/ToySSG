@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.toyssg.R
 import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.ui.adapter.viewholder.BaseSSGViewHolder
+import com.example.toyssg.ui.adapter.viewholder.CurrentItemViewHolder
 import com.example.toyssg.ui.adapter.viewholder.ImageViewHolder
 
 class CurrentAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
@@ -12,11 +13,13 @@ class CurrentAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
     private val currentViewSet = mutableSetOf<SSGItem>()
     private val currentViewList get() = currentViewSet.toList()
 
+    private lateinit var itemClickListener: (item: Any) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseSSGViewHolder<*> =
-        ImageViewHolder(parent, R.layout.item_image)
+        CurrentItemViewHolder(parent, R.layout.item_current, itemClickListener)
 
     override fun onBindViewHolder(holder: BaseSSGViewHolder<*>, position: Int) {
-        (holder as ImageViewHolder).bind(currentViewList[position])
+        (holder as CurrentItemViewHolder).bind(currentViewList[position])
     }
 
     override fun getItemCount(): Int =
@@ -25,6 +28,15 @@ class CurrentAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
 
     fun addAll(list: List<SSGItem>) {
         currentViewSet.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: (item: Any) -> Unit) {
+        itemClickListener = listener
+    }
+
+    fun removeItem(item: SSGItem) {
+        currentViewSet.remove(item)
         notifyDataSetChanged()
     }
 
