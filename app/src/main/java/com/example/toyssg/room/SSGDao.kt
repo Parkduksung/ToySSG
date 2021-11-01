@@ -11,7 +11,7 @@ interface SSGDao {
     @Query("SELECT * FROM ssg_table")
     fun getAll(): List<SSGEntity>
 
-    @Delete
-    fun deleteSSGEntity(eatEntity: SSGEntity): Int
+    @Query("DELETE FROM ssg_table WHERE name = (:name) And price = (:price) AND detail = (:detail) AND image = (:image)")
+    fun deleteSSGEntity(name: String?, price: String?, detail: String?, image: String?): Int
 
 }
