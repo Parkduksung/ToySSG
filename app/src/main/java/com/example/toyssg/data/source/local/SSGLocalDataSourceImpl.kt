@@ -32,7 +32,12 @@ class SSGLocalDataSourceImpl @Inject constructor(private val ssgDao: SSGDao) : S
 
     override suspend fun deleteSSGEntity(entity: SSGEntity): Boolean = withContext(Dispatchers.IO) {
         return@withContext try {
-            ssgDao.deleteSSGEntity(entity) >= 1
+            ssgDao.deleteSSGEntity(
+                name = entity.name,
+                price = entity.price,
+                detail = entity.detail,
+                image = entity.image
+            ) >= 1
         } catch (e: Exception) {
             false
         }

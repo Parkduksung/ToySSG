@@ -129,7 +129,14 @@ class SSGLocalDataSourceImplTest : BaseTest() {
 
         val mockSSGEntity = mockSSGDataList[0].item.toSSGEntity()
 
-        Mockito.`when`(ssgDao.deleteSSGEntity(mockSSGEntity)).thenReturn(1)
+        Mockito.`when`(
+            ssgDao.deleteSSGEntity(
+                name = mockSSGEntity.name,
+                price = mockSSGEntity.price,
+                detail = mockSSGEntity.detail,
+                image = mockSSGEntity.image,
+            )
+        ).thenReturn(1)
 
         MatcherAssert.assertThat(
             ssgLocalDataSourceImpl.deleteSSGEntity(mockSSGEntity),
@@ -146,7 +153,14 @@ class SSGLocalDataSourceImplTest : BaseTest() {
 
         val failureResult = Result.Error(exception)
 
-        Mockito.`when`(ssgDao.deleteSSGEntity(mockSSGEntity)).then { failureResult }
+        Mockito.`when`(
+            ssgDao.deleteSSGEntity(
+                name = mockSSGEntity.name,
+                price = mockSSGEntity.price,
+                detail = mockSSGEntity.detail,
+                image = mockSSGEntity.image,
+            )
+        ).then { failureResult }
 
         MatcherAssert.assertThat(
             ssgLocalDataSourceImpl.deleteSSGEntity(mockSSGEntity),
