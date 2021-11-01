@@ -6,9 +6,10 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseSSGViewHolder<T>(
+abstract class BaseSSGViewHolder<T : Any>(
     parent: ViewGroup,
-    @LayoutRes layoutId: Int
+    @LayoutRes layoutId: Int,
+    private val onItemClick: ((Item: Any) -> Unit)? = null
 ) :
     RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
