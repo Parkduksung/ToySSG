@@ -1,6 +1,7 @@
 package com.example.toyssg.api.response
 
 import android.os.Parcelable
+import com.example.toyssg.room.SSGEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -22,5 +23,14 @@ data class SSGItem(
     @SerializedName("image") var image: String? = null,
     @SerializedName("name") var name: String? = null,
     @SerializedName("price") var price: String? = null
-) : Parcelable
+) : Parcelable {
+
+    fun toSSGEntity(): SSGEntity =
+        SSGEntity(
+            detail = detail,
+            image = image,
+            name = name,
+            price = price
+        )
+}
 
