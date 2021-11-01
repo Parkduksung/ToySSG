@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.toyssg.R
 import com.example.toyssg.api.response.SSGItem
@@ -65,11 +66,29 @@ class SSGCurrentFragment : BaseFragment<CurrentFrgBinding>(R.layout.current_frg)
     private fun onChangedViewState(viewState: HomeViewModel.HomeViewState) {
         when (viewState) {
             is HomeViewModel.HomeViewState.GetCurrentItemList -> {
+                toggleViewChange(isHasCurrentItem = true)
                 currentAdapter.addAll(viewState.list)
             }
 
             is HomeViewModel.HomeViewState.DeleteCurrentItem -> {
                 currentAdapter.removeItem(viewState.item)
+            }
+
+            is HomeViewModel.HomeViewState.EmptyCurrentItem -> {
+                toggleViewChange(isHasCurrentItem = false)
+                binding.tvEmptyContent.bringToFront()
+            }
+        }
+    }
+
+    private fun toggleViewChange(isHasCurrentItem: Boolean) {
+
+        with(binding) {
+            rvCurrent.isVisible = isHasCurrentItem
+            tvEmptyContent.isVisible = !isHasCurrentItem
+
+            if (!isHasCurrentItem) {
+                tvEmptyContent.bringToFront()
             }
         }
     }

@@ -2,4 +2,5 @@
     <string name="app_name">ToySSG</string>
     <string name="current_view">최근 본 상품</string>
     <string name="detail_view">상세화면</string>
+    <string name="empty_current">최근 본 상품이 없습니다!</string>
 </resources>

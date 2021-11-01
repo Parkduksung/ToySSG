@@ -66,6 +66,10 @@ class HomeActivity : BaseActivity<HomeActBinding>(R.layout.home_act) {
             is HomeViewModel.HomeViewState.Error -> {
                 Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
             }
+
+            is HomeViewModel.HomeViewState.DeleteCurrentItem -> {
+                homeViewModel.isExistCurrentItemList()
+            }
         }
     }
 }
