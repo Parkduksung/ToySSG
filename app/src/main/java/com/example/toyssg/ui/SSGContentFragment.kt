@@ -79,14 +79,15 @@ class SSGContentFragment : BaseFragment<ContentFrgBinding>(R.layout.content_frg)
         when (viewState) {
             is HomeViewModel.HomeViewState.GetSSGItemList -> {
                 ssgAdapter.addAll(viewState.list)
+                homeViewModel.getCurrentItemList()
             }
 
             is HomeViewModel.HomeViewState.GetCurrentItemList -> {
-
+                ssgAdapter.addCurrentList(viewState.list)
             }
 
             is HomeViewModel.HomeViewState.EmptyCurrentItem -> {
-
+                ssgAdapter.addCurrentList(emptyList())
             }
         }
     }

@@ -5,7 +5,6 @@ import androidx.annotation.LayoutRes
 import com.example.toyssg.BR
 import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.databinding.ItemCurrentBinding
-import com.example.toyssg.ui.adapter.CurrentAdapter
 
 class CurrentItemViewHolder(
     parent: ViewGroup,

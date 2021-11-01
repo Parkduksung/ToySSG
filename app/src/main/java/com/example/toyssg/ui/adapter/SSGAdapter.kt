@@ -4,11 +4,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.toyssg.R
 import com.example.toyssg.api.response.SSGData
+import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.constant.SSGDataTYpe
 import com.example.toyssg.ext.transViewTypeToInt
-import com.example.toyssg.ui.adapter.viewholder.BaseSSGViewHolder
-import com.example.toyssg.ui.adapter.viewholder.ImageViewHolder
-import com.example.toyssg.ui.adapter.viewholder.ProductItemViewHolder
+import com.example.toyssg.ui.adapter.viewholder.*
 
 
 class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
@@ -16,6 +15,8 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
     private val ssgItemList = mutableListOf<SSGData>()
 
     private lateinit var itemClickListener: (item: Any) -> Unit
+
+    private val currentPreviewItemList = mutableListOf<SSGItem>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,6 +37,11 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
             is ImageViewHolder -> {
                 holder.bind(ssgItemList[position].item)
             }
+
+            is CurrentPreviewViewHolder -> {
+                holder.bind(currentPreviewItemList)
+            }
+
             is ProductItemViewHolder -> {
                 holder.bind(ssgItemList[position].item)
             }
@@ -55,6 +61,18 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
         itemClickListener = listener
     }
 
+    fun addCurrentList(itemList: List<SSGItem>) {
+        currentPreviewItemList.clear()
+        if (itemList.isNotEmpty()) {
+            currentPreviewItemList.addAll(itemList.reversed())
+            ssgItemList.removeAll(ssgItemList.filter { it.viewType == "current_preview" })
+            ssgItemList.add(1, SSGData(viewType = "current_preview", item = SSGItem()))
+        } else {
+            ssgItemList.removeAll(ssgItemList.filter { it.viewType == "current_preview" })
+        }
+    }
+
+
     companion object {
 
         fun sortViewHolder(
@@ -65,6 +83,9 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
             return when (viewType) {
                 SSGDataTYpe.TYPE_IMAGE.ordinal -> {
                     ImageViewHolder(parent, R.layout.item_image)
+                }
+                SSGDataTYpe.TYPE_CURRENT_PREVIEW.ordinal -> {
+                    CurrentPreviewViewHolder(parent, R.layout.item_current_preview)
                 }
                 else -> {
                     ProductItemViewHolder(parent, R.layout.item_product, onItemClick)

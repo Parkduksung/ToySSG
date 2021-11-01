@@ -13,8 +13,11 @@
         <entry key="app/src/main/res/layout/detail_frg.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/home_act.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_current.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/item_current_horizion.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/item_current_preview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_image.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_product.xml" value="0.13697916666666668" />
+        <entry key="app/src/main/res/layout/item_product_preview.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/item_ssg.xml" value="0.165" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/view_current.xml" value="0.26145833333333335" />

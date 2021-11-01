@@ -6,12 +6,11 @@ import com.example.toyssg.R
 import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.ui.adapter.viewholder.BaseSSGViewHolder
 import com.example.toyssg.ui.adapter.viewholder.CurrentItemViewHolder
-import com.example.toyssg.ui.adapter.viewholder.ImageViewHolder
 
 class CurrentAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
 
     private val currentViewSet = mutableSetOf<SSGItem>()
-    private val currentViewList get() = currentViewSet.toList()
+    private val currentViewList get() = currentViewSet.toList().reversed()
 
     private lateinit var itemClickListener: (item: Any) -> Unit
 
