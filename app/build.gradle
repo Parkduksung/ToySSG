@@ -112,6 +112,7 @@ dependencies {
         liveData_version = '2.3.0'
         viewModel_version = '2.3.0'
         lifeCycle_version = '2.3.0'
+        room_version = '2.3.0'
     }
 
     //hilt
@@ -125,4 +126,8 @@ dependencies {
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycle_version"
 
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
