@@ -118,7 +118,7 @@ class SSGRemoteDataSourceImplTest : BaseTest() {
             )
 
 
-        private val mockSSGDataList = listOf(
+        val mockSSGDataList = listOf(
 
             SSGData(
                 viewType = "image",
