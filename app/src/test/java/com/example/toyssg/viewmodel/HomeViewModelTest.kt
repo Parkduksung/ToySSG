@@ -6,6 +6,7 @@ import com.example.toyssg.data.repo.SSGRepository
 import com.example.toyssg.data.repo.SSGRepositoryImpl
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest.Companion.mockSSGItemResponse
+import com.example.toyssg.room.SSGEntity
 import com.example.toyssg.util.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -103,5 +104,130 @@ class HomeViewModelTest : ViewModelBaseTest() {
 
     }
 
+
+    @Test
+    fun checkAddCurrentSSGItemSuccessTest() = runBlocking {
+
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item
+
+        val mockSSGEntity = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item.toSSGEntity()
+
+        Mockito.`when`(ssgRepository.registerSSGEntity(mockSSGEntity)).thenReturn(true)
+
+        homeViewModel.addCurrentSSGItem(mockSSGItem)
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.AddCurrentItem)
+    }
+
+    @Test
+    fun checkAddCurrentSSGItemFailTest() = runBlocking {
+
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item
+
+        val mockSSGEntity = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item.toSSGEntity()
+
+        Mockito.`when`(ssgRepository.registerSSGEntity(mockSSGEntity)).thenReturn(false)
+
+        homeViewModel.addCurrentSSGItem(mockSSGItem)
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.Error("AddCurrentSSGItem Error"))
+    }
+
+    @Test
+    fun checkDeleteCurrentSSGItemSuccessTest() = runBlocking {
+
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item
+
+        val mockSSGEntity = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item.toSSGEntity()
+
+        Mockito.`when`(ssgRepository.deleteSSGEntity(mockSSGEntity)).thenReturn(true)
+
+        homeViewModel.deleteCurrentSSGItem(mockSSGItem)
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.DeleteCurrentItem(mockSSGItem))
+    }
+
+    @Test
+    fun checkDeleteCurrentSSGItemFailTest() = runBlocking {
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item
+
+        val mockSSGEntity = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item.toSSGEntity()
+
+        Mockito.`when`(ssgRepository.deleteSSGEntity(mockSSGEntity)).thenReturn(false)
+
+        homeViewModel.deleteCurrentSSGItem(mockSSGItem)
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.Error("DeleteCurrentSSGItem Error"))
+    }
+
+    @Test
+    fun checkGetCurrentItemListSuccessTest() = runBlocking {
+
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList.map { it.item }
+
+        val mockSSGEntityList =
+            mockSSGItem.map { it.toSSGEntity() }
+
+        val successResult = Result.Success(mockSSGEntityList)
+
+        Mockito.`when`(ssgRepository.getAllSSGEntity()).thenReturn(successResult)
+
+        homeViewModel.getCurrentItemList()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.GetCurrentItemList(mockSSGItem))
+    }
+
+    @Test
+    fun checkGetCurrentItemListFailTest() = runBlocking {
+
+        val exception = Exception("Error GetCurrentItemList!")
+
+        val failResult = Result.Error(exception)
+
+
+        Mockito.`when`(ssgRepository.getAllSSGEntity()).then { failResult }
+
+        homeViewModel.getCurrentItemList()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.Error(exception.message.toString()))
+
+    }
+
+    @Test
+    fun checkGetCurrentItemListEmptyTest() = runBlocking {
+
+
+        val mockEmptySSGEntityList =
+            emptyList<SSGEntity>()
+
+        val successResult = Result.Success(mockEmptySSGEntityList)
+
+        Mockito.`when`(ssgRepository.getAllSSGEntity()).thenReturn(successResult)
+
+        homeViewModel.getCurrentItemList()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.EmptyCurrentItem)
+    }
 
 }
