@@ -7,8 +7,12 @@ import com.example.toyssg.api.response.SSGItem
 import com.example.toyssg.databinding.ItemProductBinding
 
 
-class ProductItemViewHolder(parent: ViewGroup, @LayoutRes layoutId: Int) :
-    BaseSSGViewHolder<SSGItem>(parent, layoutId) {
+class ProductItemViewHolder(
+    parent: ViewGroup,
+    @LayoutRes layoutId: Int,
+    private val onItemClick: ((item: Any) -> Unit)? = null
+) :
+    BaseSSGViewHolder<SSGItem>(parent, layoutId, onItemClick) {
 
     init {
         binding = ItemProductBinding.bind(itemView)
@@ -18,6 +22,10 @@ class ProductItemViewHolder(parent: ViewGroup, @LayoutRes layoutId: Int) :
         binding.run {
             setVariable(BR.ssgItem, item)
             executePendingBindings()
+        }
+
+        itemView.setOnClickListener {
+            onItemClick?.let { it(item) }
         }
     }
 }
