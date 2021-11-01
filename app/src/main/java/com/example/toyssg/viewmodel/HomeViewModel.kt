@@ -73,6 +73,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun isExistCurrentItemList() {
+        ioScope.launch {
+            when (val result = ssgRepository.getAllSSGEntity()) {
+                is Result.Success -> {
+                    if (result.data.isEmpty()) {
+                        viewStateChanged(HomeViewState.EmptyCurrentItem)
+                    }
+                }
+                is Result.Error -> {
+                    viewStateChanged(HomeViewState.Error(result.exception.message.toString()))
+                }
+            }
+        }
+    }
+
 
     fun routeContent() {
         viewStateChanged(HomeViewState.RouteContent)
