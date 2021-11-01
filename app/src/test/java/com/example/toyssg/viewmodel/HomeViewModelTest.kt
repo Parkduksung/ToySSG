@@ -4,6 +4,7 @@ import base.ViewModelBaseTest
 import com.example.toyssg.api.response.SSGData
 import com.example.toyssg.data.repo.SSGRepository
 import com.example.toyssg.data.repo.SSGRepositoryImpl
+import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest
 import com.example.toyssg.data.source.remote.SSGRemoteDataSourceImplTest.Companion.mockSSGItemResponse
 import com.example.toyssg.util.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -65,4 +66,42 @@ class HomeViewModelTest : ViewModelBaseTest() {
             .onChanged(HomeViewModel.HomeViewState.Error(exception.message.toString()))
 
     }
+
+    @Test
+    fun checkRouteContentTest() = runBlocking {
+
+        homeViewModel.routeContent()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.RouteContent)
+    }
+
+    @Test
+    fun checkRouteCurrentTest() = runBlocking {
+        homeViewModel.routeCurrent()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.RouteCurrent)
+    }
+
+
+    @Test
+    fun checkRouteDetailTest() = runBlocking {
+
+        val mockSSGItem = SSGRemoteDataSourceImplTest.mockSSGDataList[0].item
+
+        homeViewModel.routeDetail(mockSSGItem)
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.RouteDetail(mockSSGItem))
+
+    }
+
+
 }
