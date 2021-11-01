@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
             if (ssgRepository.registerSSGEntity(item.toSSGEntity())) {
                 viewStateChanged(HomeViewState.AddCurrentItem)
             } else {
-                viewStateChanged(HomeViewState.Error("등록 x"))
+                viewStateChanged(HomeViewState.Error("AddCurrentSSGItem Error"))
             }
         }
     }
@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
             if (ssgRepository.deleteSSGEntity(item.toSSGEntity())) {
                 viewStateChanged(HomeViewState.DeleteCurrentItem(item))
             } else {
-                viewStateChanged(HomeViewState.Error("삭제 x"))
+                viewStateChanged(HomeViewState.Error("DeleteCurrentSSGItem Error"))
             }
         }
     }
@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
                 }
 
                 is Result.Error -> {
-                    viewStateChanged(HomeViewState.Error("결과 x"))
+                    viewStateChanged(HomeViewState.Error(result.exception.message.toString()))
                 }
             }
         }
