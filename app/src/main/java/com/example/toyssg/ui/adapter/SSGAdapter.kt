@@ -70,6 +70,7 @@ class SSGAdapter : RecyclerView.Adapter<BaseSSGViewHolder<*>>() {
         } else {
             ssgItemList.removeAll(ssgItemList.filter { it.viewType == "current_preview" })
         }
+        notifyDataSetChanged()
     }
 
 
