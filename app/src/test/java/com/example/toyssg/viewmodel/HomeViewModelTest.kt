@@ -230,4 +230,41 @@ class HomeViewModelTest : ViewModelBaseTest() {
             .onChanged(HomeViewModel.HomeViewState.EmptyCurrentItem)
     }
 
+    @Test
+    fun checkIsExistCurrentItemListSuccessTest() = runBlocking {
+        val mockEmptySSGEntityList =
+            emptyList<SSGEntity>()
+
+        val successResult = Result.Success(mockEmptySSGEntityList)
+
+        Mockito.`when`(ssgRepository.getAllSSGEntity()).thenReturn(successResult)
+
+        homeViewModel.isExistCurrentItemList()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.EmptyCurrentItem)
+    }
+
+    @Test
+    fun checkIsExistCurrentItemListFailTest() = runBlocking {
+
+        val exception = Exception("Error GetCurrentItemList!")
+
+        val failResult = Result.Error(exception)
+
+
+        Mockito.`when`(ssgRepository.getAllSSGEntity()).then { failResult }
+
+        homeViewModel.isExistCurrentItemList()
+
+        delay(100L)
+
+        Mockito.verify(viewStateObserver)
+            .onChanged(HomeViewModel.HomeViewState.Error(exception.message.toString()))
+
+
+    }
+
 }
